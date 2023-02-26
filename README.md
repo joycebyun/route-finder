@@ -15,6 +15,19 @@ I don't know of an existing algorithm for generating a route under these constra
 *It does **not** guarantee that the generated route visits the largest possible number of new nodes!* 
 But it should give a reasonably good answer.
 
+## Why?
+
+Running around my neighborhood and city is my preferred way of getting to know the area where I live. 
+I don't think I'm the only one&mdash;[CityStrides](https://citystrides.com) is an online community of runners who are tracking the places they have explored on foot.
+Using CityStrides made me look forward to my runs even more, because I could easily see where I had already been and plan routes to explore new areas.
+There is also a competitive aspect to CityStrides: for each city, runners are ranked by how many streets have been "completed".
+
+I started planning my runs manually by looking at a map of nodes, and guessing which route would take me to the largest number of new nodes.
+After I learned about graph data structures and graph algorithms, I started to wonder whether there was a better way to make routes.
+Could I use an algorithm to plan my runs for me?
+This project is my attempt at developing a graph algorithm to find routes that explore my city more efficiently.
+
+
 ## Algorithm
 
 :construction_worker: *Under construction* :construction:
