@@ -27,6 +27,16 @@ After I learned about graph data structures and graph algorithms, I started to w
 Could I use an algorithm to plan my runs for me?
 This project is my attempt at developing a graph algorithm to find routes that explore my city more efficiently.
 
+## Requirements
+
+Running this project requires installations of:
+1. [Jupyter Notebook](https://jupyter-notebook.readthedocs.io/en/stable/index.html)
+2. [`osmnx`](https://github.com/gboeing/osmnx/)
+
+The recommended way to get the requirements is by installing [Docker](https://www.docker.com/products/docker-desktop/) and running the unofficial public Docker [image](https://hub.docker.com/r/gboeing/osmnx) created by the owner of `osmnx`.
+Everything that is needed to run this project is included in this Docker container environment, and there is no need to separately install Jupyter Notebook and `osmnx`.
+
+Alternatively, it is possible to install Jupyter Notebook and `osmnx` using [Anaconda](https://www.anaconda.com/products/distribution) or `pip`. See [here](https://docs.jupyter.org/en/latest/install/notebook-classic.html) and [here](https://osmnx.readthedocs.io/en/stable/#installation) for details.
 
 ## Algorithm
 
