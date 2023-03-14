@@ -50,3 +50,12 @@ Alternatively, it is possible to install Jupyter Notebook and `osmnx` using [Ana
 ## License
 
 This project is licensed under the terms of the MIT license.
+
+## Acknowledgements
+
+Many other developer tools and Python packages helped in the development of this project, such as:
+- [VS Code](https://code.visualstudio.com)
+- [`pytest`](https://docs.pytest.org/en/7.2.x/) and [`pytest-cov`](https://github.com/pytest-dev/pytest-cov) for testing and coverage
+- [`pylama`](https://github.com/klen/pylama) for checking code style and quality
+- [`shields.io`](https://shields.io) and [`genbadge`](https://github.com/smarie/python-genbadge) for making the badges in this readme
+
