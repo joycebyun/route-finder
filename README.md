@@ -1,5 +1,10 @@
 # route-finder
 
+![last commit](https://img.shields.io/github/last-commit/joycebyun/route-finder "last commit")
+![tests](tests-badge.svg "tests")
+![coverage](coverage-badge.svg "coverage")
+[![linting](https://img.shields.io/badge/linting-pylama-informational)](https://github.com/klen/pylama)
+
 Given a maximum run distance and a starting location, `route-finder` generates a running route that aims to maximize the number of new locations visited.
 
 ## Description
