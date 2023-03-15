@@ -10,7 +10,7 @@ rm -f junit.xml
 # print report to terminal
 # save report in XML format to cov.xml
 # save report in JUnit-XML format to junit.xml
-pytest --cov=src/ --cov-report term --cov-report xml:cov.xml --junitxml=junit.xml
+pytest --cov=src/ --cov-report term-missing --cov-report xml:cov.xml --junitxml=junit.xml
 
 # install genbadge if it's not already installed
 x=$(pip list | grep genbadge)
