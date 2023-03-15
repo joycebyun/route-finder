@@ -9,19 +9,21 @@ import osmnx as ox
 
 
 @pytest.fixture
-def G():
-    address = "501 E 9th St, Tucson, AZ 85705"
+def center_point():
+    return (32.231774, -110.9438645)
 
-    MDG = ox.graph.graph_from_address(address=address,
-                                      dist=1000,  # meters from center
-                                      dist_type='bbox',
-                                      network_type='drive',
-                                      simplify=False,
-                                      retain_all=True,
-                                      truncate_by_edge=False,
-                                      return_coords=False,
-                                      clean_periphery=False,
-                                      custom_filter=None)
+
+@pytest.fixture
+def G(center_point):
+    MDG = ox.graph.graph_from_point(center_point=center_point,
+                                    dist=1000,  # meters from center
+                                    dist_type='bbox',
+                                    network_type='drive',
+                                    simplify=False,
+                                    retain_all=True,
+                                    truncate_by_edge=False,
+                                    clean_periphery=False,
+                                    custom_filter=None)
 
     # Remove interstitial nodes (nodes that are not intersections or dead-ends)
     MDG = ox.simplification.simplify_graph(MDG,
