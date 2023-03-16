@@ -113,17 +113,64 @@ def test_get_viable_edges_grid(grid, rf_grid):
     assert Edge(3, 4, 0, 1.0) in viable_edges
 
 
-def test_brute_force(rf_grid):
+def test_brute_force_finds_all(rf_grid):
     rf_grid.brute_force()
-
     assert len(rf_grid.all_routes) == 32
 
+
+def test_brute_force_distances(rf_grid):
+    rf_grid.brute_force()
     for r in rf_grid.all_routes:
         assert r.distance == pytest.approx(4.0)
 
-    node_routes = set()
+
+def test_brute_force_route_nodes(rf_grid):
+    rf_grid.brute_force()
+
+    nodes = set()
     for r in rf_grid.all_routes:
-        node_routes.add(str(r.nodes))
-    assert str([0, 2, 3, 4, 0]) in node_routes
-    assert str([0, 2, 3, 2, 0]) in node_routes
-    assert str([0, 2, 0, 2, 0]) in node_routes
+        nodes.add(str(r.nodes))
+
+    assert str([0, 2, 0, 2, 0]) in nodes
+    assert str([0, 2, 0, 4, 0]) in nodes
+    assert str([0, 2, 0, 6, 0]) in nodes
+    assert str([0, 2, 0, 8, 0]) in nodes
+
+    assert str([0, 4, 0, 2, 0]) in nodes
+    assert str([0, 4, 0, 4, 0]) in nodes
+    assert str([0, 4, 0, 6, 0]) in nodes
+    assert str([0, 4, 0, 8, 0]) in nodes
+
+    assert str([0, 6, 0, 2, 0]) in nodes
+    assert str([0, 6, 0, 4, 0]) in nodes
+    assert str([0, 6, 0, 6, 0]) in nodes
+    assert str([0, 6, 0, 8, 0]) in nodes
+
+    assert str([0, 8, 0, 2, 0]) in nodes
+    assert str([0, 8, 0, 4, 0]) in nodes
+    assert str([0, 8, 0, 6, 0]) in nodes
+    assert str([0, 8, 0, 8, 0]) in nodes
+
+    assert str([0, 2, 3, 2, 0]) in nodes
+    assert str([0, 4, 3, 4, 0]) in nodes
+
+    assert str([0, 4, 5, 4, 0]) in nodes
+    assert str([0, 6, 5, 6, 0]) in nodes
+
+    assert str([0, 6, 7, 6, 0]) in nodes
+    assert str([0, 8, 7, 8, 0]) in nodes
+
+    assert str([0, 8, 1, 8, 0]) in nodes
+    assert str([0, 2, 1, 2, 0]) in nodes
+
+    assert str([0, 2, 3, 4, 0]) in nodes
+    assert str([0, 4, 3, 2, 0]) in nodes
+
+    assert str([0, 4, 5, 6, 0]) in nodes
+    assert str([0, 6, 5, 4, 0]) in nodes
+
+    assert str([0, 6, 7, 8, 0]) in nodes
+    assert str([0, 8, 7, 6, 0]) in nodes
+
+    assert str([0, 8, 1, 2, 0]) in nodes
+    assert str([0, 2, 1, 8, 0]) in nodes
