@@ -1,8 +1,9 @@
 import copy
 from edge import Edge
+import edge
 from route import Route
 import networkx as nx
-from typing import List
+from typing import List, Tuple
 
 
 class RouteFinder():
@@ -18,7 +19,7 @@ class RouteFinder():
         return [Edge(*e) for e in self.G.edges(nbunch=u, data='length', keys=True)]
 
     def get_viable_edges(self, route: Route) -> List[Edge]:
-        # a viable edge is an incident edge that we could traverse, 
+        # a viable edge is an incident edge that we could traverse,
         # and still get back to source with distance <= max_distance
 
         u = route.nodes[-1]
@@ -40,16 +41,9 @@ class RouteFinder():
 
         if viable_edges:
             for e in viable_edges:
-                route.edges.append(e)
-                route.nodes.append(e.v)
-                route.distance += e.length
-
+                route.add_edge(e)
                 self.recursive_brute_force(route)
-
-                # backtrack
-                route.edges.pop()
-                route.nodes.pop()
-                route.distance -= e.length
+                route.remove_edge()  # backtracking
         else:
             self.all_routes.append(copy.deepcopy(route))
 

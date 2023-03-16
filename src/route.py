@@ -16,7 +16,7 @@ class Route():
         self.edges.append(e)
         self.distance += e.length
 
-    def remove_last_edge(self):
+    def remove_edge(self):
         self.nodes.pop()
         e = self.edges.pop()
         self.distance -= e.length
