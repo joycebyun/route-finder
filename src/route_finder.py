@@ -53,12 +53,50 @@ class RouteFinder():
 
         return all_routes
 
-    @staticmethod
-    def count_unique_nodes(route: Route) -> int:
-        return len(set(route.nodes))
+    #@staticmethod
+    #def count_unique_nodes(route: Route) -> int:
+    #    return len(set(route.nodes))
 
-    @staticmethod
-    def maximize_new_nodes(routes: List[Route]) -> List[Route]:
+    #@staticmethod
+    #def maximize_new_nodes(routes: List[Route]) -> List[Route]:
         # return routes that have the largest number of new nodes
-        max_new_nodes = max([__class__.count_unique_nodes(r) for r in routes])
-        return [r for r in routes if __class__.count_unique_nodes(r) == max_new_nodes]
+    #    max_new_nodes = max([__class__.count_unique_nodes(r) for r in routes])
+    #    return [r for r in routes if __class__.count_unique_nodes(r) == max_new_nodes]
+
+    def to_unvisited_and_visited_nodes(self, edges: List[Edge]) -> Tuple[List[Edge], List[Edge]]:
+        # return 2 lists of edges: edges to unvisited nodes, edges to visited nodes
+        unvisited = []
+        visited = []
+
+        for e in edges:
+            if self.G.nodes[e.v]['visited'] is False:
+                unvisited.append(e)
+            else:
+                visited.append(e)
+
+        return unvisited, visited
+
+    def recursive_greedy_nearest(self, route: Route) -> None:
+        u = route.nodes[-1]
+
+        self.G.add_node(u, visited=True)
+
+        viable_edges = self.get_viable_edges(route)
+
+        if viable_edges:
+            e_to_unvisited, e_to_visited = self.to_unvisited_and_visited_nodes(viable_edges)
+            if e_to_unvisited:
+                e = edge.shortest_edge(e_to_unvisited)
+            elif e_to_visited:
+                e = edge.shortest_edge(e_to_visited)
+        else:
+            return
+
+        route.add_edge(e)
+        self.recursive_greedy_nearest(route)
+
+    def greedy_nearest(self) -> Route:
+        route = Route()
+        route.nodes.append(self.source)
+        self.recursive_greedy_nearest(route)
+        return route

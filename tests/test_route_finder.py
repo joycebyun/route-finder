@@ -176,8 +176,8 @@ def test_brute_force_route_nodes(rf_grid):
     assert str([0, 2, 1, 8, 0]) in nodes
 
 
-def test_maximize_new_nodes(rf_grid):
-    routes = rf_grid.brute_force()
-    routes = RouteFinder.maximize_new_nodes(routes)
-    assert len(routes) == 8
+#def test_maximize_new_nodes(rf_grid):
+#    routes = rf_grid.brute_force()
+#    routes = RouteFinder.maximize_new_nodes(routes)
+#    assert len(routes) == 8
 
