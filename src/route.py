@@ -16,3 +16,6 @@ class Route():
         self.edges: List[Edge] = []
         self.distance: float = 0
 
+    def __str__(self):
+        return str(self.nodes)
+
