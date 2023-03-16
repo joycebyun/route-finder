@@ -114,21 +114,21 @@ def test_get_viable_edges_grid(grid, rf_grid):
 
 
 def test_brute_force_finds_all(rf_grid):
-    rf_grid.brute_force()
-    assert len(rf_grid.all_routes) == 32
+    routes = rf_grid.brute_force()
+    assert len(routes) == 32
 
 
 def test_brute_force_distances(rf_grid):
-    rf_grid.brute_force()
-    for r in rf_grid.all_routes:
+    routes = rf_grid.brute_force()
+    for r in routes:
         assert r.distance == pytest.approx(4.0)
 
 
 def test_brute_force_route_nodes(rf_grid):
-    rf_grid.brute_force()
+    routes = rf_grid.brute_force()
 
     nodes = set()
-    for r in rf_grid.all_routes:
+    for r in routes:
         nodes.add(str(r.nodes))
 
     assert str([0, 2, 0, 2, 0]) in nodes
@@ -177,7 +177,7 @@ def test_brute_force_route_nodes(rf_grid):
 
 
 def test_maximize_new_nodes(rf_grid):
-    rf_grid.brute_force()
-    routes = RouteFinder.maximize_new_nodes(rf_grid.all_routes)
+    routes = rf_grid.brute_force()
+    routes = RouteFinder.maximize_new_nodes(routes)
     assert len(routes) == 8
 
