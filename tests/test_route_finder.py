@@ -76,3 +76,54 @@ def test_get_viable_edges(rf, route_fixture):
                                               source=e.v,
                                               target=rf.source,
                                               weight='length')) > rf.max_distance
+
+
+@pytest.fixture
+def rf_grid(grid):
+    source = 0
+    max_distance = 4.0
+    return RouteFinder(grid, source, max_distance)
+
+
+def test_get_incident_edges_grid(rf_grid):
+    incident_edges = rf_grid.get_incident_edges(u=0)
+    assert len(incident_edges) == 4
+    assert Edge(0, 2, 0, 1.0) in incident_edges
+    assert Edge(0, 4, 0, 1.0) in incident_edges
+    assert Edge(0, 6, 0, 1.0) in incident_edges
+    assert Edge(0, 8, 0, 1.0) in incident_edges
+
+    incident_edges = rf_grid.get_incident_edges(u=8)
+    assert len(incident_edges) == 3
+    assert Edge(8, 1, 0, 1.0) in incident_edges
+    assert Edge(8, 0, 0, 1.0) in incident_edges
+    assert Edge(8, 7, 0, 1.0) in incident_edges
+
+
+def test_get_viable_edges_grid(grid, rf_grid):
+    route = Route(grid)
+    route.nodes = [0, 2, 3]
+    route.edges.append(Edge(0, 2, 0, 1.0))
+    route.edges.append(Edge(2, 3, 0, 1.0))
+    route.distance = 2.0
+
+    viable_edges = rf_grid.get_viable_edges(route)
+    assert len(viable_edges) == 2
+    assert Edge(3, 2, 0, 1.0) in viable_edges
+    assert Edge(3, 4, 0, 1.0) in viable_edges
+
+
+def test_brute_force(rf_grid):
+    rf_grid.brute_force()
+
+    assert len(rf_grid.all_routes) == 32
+
+    for r in rf_grid.all_routes:
+        assert r.distance == pytest.approx(4.0)
+
+    node_routes = set()
+    for r in rf_grid.all_routes:
+        node_routes.add(str(r.nodes))
+    assert str([0, 2, 3, 4, 0]) in node_routes
+    assert str([0, 2, 3, 2, 0]) in node_routes
+    assert str([0, 2, 0, 2, 0]) in node_routes

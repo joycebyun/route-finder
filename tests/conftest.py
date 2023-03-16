@@ -1,5 +1,6 @@
 import pytest
 import os
+import networkx as nx
 
 # Force geopandas to use Shapely 2.0 instead of PyGEOS
 # (PyGEOS was merged with Shapely, and will stop working in a future release of GeoPandas)
@@ -33,3 +34,26 @@ def G(center_point):
 
     MG = ox.utils_graph.get_undirected(MDG)
     return MG
+
+
+@pytest.fixture
+def grid():
+    # create a 3x3 grid of nodes, where 0 is in the middle
+    G = nx.MultiGraph()
+
+    G.add_edge(1, 2, 0)
+    G.add_edge(2, 3, 0)
+    G.add_edge(3, 4, 0)
+    G.add_edge(4, 5, 0)
+    G.add_edge(5, 6, 0)
+    G.add_edge(6, 7, 0)
+    G.add_edge(7, 8, 0)
+    G.add_edge(8, 1, 0)
+
+    G.add_edge(0, 2, 0)
+    G.add_edge(0, 4, 0)
+    G.add_edge(0, 6, 0)
+    G.add_edge(0, 8, 0)
+
+    nx.set_edge_attributes(G, name='length', values=1.0)
+    return G
