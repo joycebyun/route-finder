@@ -7,7 +7,7 @@ os.environ['USE_PYGEOS'] = '0'
 import osmnx as ox 
 
 from route_finder import RouteFinder
-from edge import Edge, flip
+from edge import Edge
 from route import Route
 import networkx as nx
 
@@ -43,12 +43,12 @@ def test_get_incident_edges(rf, source):
         if e.u == n:
             assert e in incident_edges
         elif e.v == n:
-            assert flip(e) in incident_edges
+            assert e.flip() in incident_edges
 
 
 @pytest.fixture
 def route_fixture(rf, source):
-    r = Route(rf.G)
+    r = Route()
     r.nodes.append(source)
     return r
 
@@ -101,7 +101,7 @@ def test_get_incident_edges_grid(rf_grid):
 
 
 def test_get_viable_edges_grid(grid, rf_grid):
-    route = Route(grid)
+    route = Route()
     route.nodes = [0, 2, 3]
     route.edges.append(Edge(0, 2, 0, 1.0))
     route.edges.append(Edge(2, 3, 0, 1.0))

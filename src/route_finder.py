@@ -54,7 +54,7 @@ class RouteFinder():
             self.all_routes.append(copy.deepcopy(route))
 
     def brute_force(self) -> None:
-        temp_route = Route(self.G)
+        temp_route = Route()
         temp_route.nodes.append(self.source)
         self.recursive_brute_force(temp_route)
 
