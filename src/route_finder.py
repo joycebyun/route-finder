@@ -47,9 +47,9 @@ class RouteFinder():
     def brute_force(self) -> List[Route]:
         all_routes: List[Route] = []  # store all routes found through brute force
 
-        temp_route = Route()
-        temp_route.nodes.append(self.source)
-        self.recursive_brute_force(temp_route, all_routes)
+        route = Route()
+        route.nodes.append(self.source)
+        self.recursive_brute_force(route, all_routes)
 
         return all_routes
 
