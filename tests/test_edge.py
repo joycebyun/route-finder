@@ -19,7 +19,11 @@ def test_edge_str(e):
 
 
 def test_edge_repr(e):
-    assert repr(e) == str(e)
+    assert repr(e) == str((1, 2, 0, 100.0))
+
+
+def test_flip(e):
+    assert e.flip() == edge.Edge(u=2, v=1, key=0, length=100.0)
 
 
 @pytest.fixture

@@ -13,6 +13,9 @@ class Edge(NamedTuple):
     def __repr__(self):
         return self.__str__()
 
+    def flip(self) -> "Edge":
+        return Edge(self.v, self.u, self.key, self.length)
+
 
 def total_length(edges: List[Edge]) -> float:
     total: float = 0
@@ -23,7 +26,3 @@ def total_length(edges: List[Edge]) -> float:
 
 def shortest_edge(edges: List[Edge]) -> Edge:
     return min(edges, key=lambda e: e.length)
-
-
-def flip(e: Edge) -> Edge:
-    return Edge(e.v, e.u, e.key, e.length)
