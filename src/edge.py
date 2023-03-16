@@ -23,3 +23,7 @@ def total_length(edges: List[Edge]) -> float:
 
 def shortest_edge(edges: List[Edge]) -> Edge:
     return min(edges, key=lambda e: e.length)
+
+
+def flip(e: Edge) -> Edge:
+    return Edge(e.v, e.u, e.key, e.length)
