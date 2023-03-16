@@ -4,6 +4,7 @@ from route import Route
 import networkx as nx
 from typing import List
 
+
 class RouteFinder():
     def __init__(self, G, source, max_distance):
         self.G = copy.deepcopy(G)
@@ -56,3 +57,13 @@ class RouteFinder():
         temp_route = Route(self.G)
         temp_route.nodes.append(self.source)
         self.recursive_brute_force(temp_route)
+
+    @staticmethod
+    def count_unique_nodes(route: Route) -> int:
+        return len(set(route.nodes))
+
+    @staticmethod
+    def maximize_new_nodes(routes: List[Route]) -> List[Route]:
+        # return routes that have the largest number of new nodes
+        max_new_nodes = max([__class__.count_unique_nodes(r) for r in routes])
+        return [r for r in routes if __class__.count_unique_nodes(r) == max_new_nodes]
