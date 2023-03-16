@@ -10,6 +10,8 @@ class RouteFinder():
         self.source: int = source
         self.max_distance: float = max_distance
 
+        self.all_routes: List[Route] = []  # store all routes found through brute force
+
     def get_incident_edges(self, u: int) -> List[Edge]:
         # get list of edges incident on u, where each edge is a tuple (u,v,k,length)
         return [Edge(*e) for e in self.G.edges(nbunch=u, data='length', keys=True)]
@@ -31,3 +33,26 @@ class RouteFinder():
                 viable.append(e)
 
         return viable
+
+    def recursive_brute_force(self, route: Route) -> None:
+        viable_edges = self.get_viable_edges(route)
+
+        if viable_edges:
+            for e in viable_edges:
+                route.edges.append(e)
+                route.nodes.append(e.v)
+                route.distance += e.length
+
+                self.recursive_brute_force(route)
+
+                # backtrack
+                route.edges.pop()
+                route.nodes.pop()
+                route.distance -= e.length
+        else:
+            self.all_routes.append(copy.deepcopy(route))
+
+    def brute_force(self) -> None:
+        temp_route = Route(self.G)
+        temp_route.nodes.append(self.source)
+        self.recursive_brute_force(temp_route)
