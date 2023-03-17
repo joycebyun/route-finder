@@ -16,9 +16,7 @@ Given a maximum run distance and a starting location, `route-finder` generates a
 
 (In graph terminology, `route-finder` works on a weighted undirected graph, and generates a closed walk that aims to maximizes the number of new nodes visited, while keeping the total weight less than the input maximum.)
 
-I don't know of an existing algorithm for generating a route under these constraints, so I created an [algorithm](#algorithm) described below. 
-*It does **not** guarantee that the generated route visits the largest possible number of new nodes!* 
-But it should give a reasonably good answer.
+This project includes two [algorithms](#algorithms) for generating a route under these constraints.
 
 ## Why?
 
@@ -43,7 +41,7 @@ Everything that is needed to run this project is included in this Docker contain
 
 Alternatively, it is possible to install Jupyter Notebook and `osmnx` using [Anaconda](https://www.anaconda.com/products/distribution) or `pip`. See [here](https://docs.jupyter.org/en/latest/install/notebook-classic.html) and [here](https://osmnx.readthedocs.io/en/stable/#installation) for details.
 
-## Algorithm
+## Algorithms
 
 :construction_worker: *Under construction* :construction:
 
