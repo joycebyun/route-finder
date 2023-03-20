@@ -81,14 +81,11 @@ class RouteFinder():
         # attempts to find the closest unvisited (viable) node.
         # if there is no viable node that is unvisited, 
         # return the closest visited (viable) node.
+
         u = route.nodes[-1]
 
-        distance, path = nx.single_source_dijkstra(self.G, u, target=None,
-                                                   cutoff=self.max_distance - route.distance,
-                                                   weight='length')
-
+        distance, path = self.single_source_dijkstra(route)
         del distance[u]
-
         distance = dict(sorted(distance.items(), key=lambda item: item[1]))
 
         closest_visited_node = None
@@ -102,6 +99,15 @@ class RouteFinder():
                     closest_visited_node = v
 
         return path[closest_visited_node]
+
+    def single_source_dijkstra(self, route: Route):
+        # wrapper for nx.single_source_dijkstra
+        # get distances and paths to viable nodes accessible from current node
+        u = route.nodes[-1]
+        distance, path = nx.single_source_dijkstra(self.G, u, target=None,
+                                                   cutoff=self.max_distance - route.distance,
+                                                   weight='length')
+        return distance, path
 
     def all_edges_between_u_and_v(self, u: int, v: int) -> List[Edge]:
         edges = []

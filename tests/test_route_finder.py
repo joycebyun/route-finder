@@ -4,7 +4,7 @@ import os
 # Force geopandas to use Shapely 2.0 instead of PyGEOS
 # (PyGEOS was merged with Shapely, and will stop working in a future release of GeoPandas)
 os.environ['USE_PYGEOS'] = '0'
-import osmnx as ox 
+import osmnx as ox
 
 from route_finder import RouteFinder
 from edge import Edge
