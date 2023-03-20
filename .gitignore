@@ -5,3 +5,10 @@ tests/__pycache__
 .coverage
 junit.xml
 cov.xml
+
+.cache
+.idea
+.ipynb_checkpoints
+.mypy_cache
+.pytest_cache
+.vscode
