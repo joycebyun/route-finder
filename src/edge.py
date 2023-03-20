@@ -18,6 +18,13 @@ class Edge(NamedTuple):
 
 
 def total_length(edges: List[Edge]) -> float:
+    """Calculate the total length for a list of edges.
+
+    :param edges: A list of edges
+    :type edges: List[Edge]
+    :return: Sum of the lengths of all edges
+    :rtype: float
+    """
     total: float = 0
     for e in edges:
         total += e.length
@@ -25,4 +32,11 @@ def total_length(edges: List[Edge]) -> float:
 
 
 def shortest_edge(edges: List[Edge]) -> Edge:
+    """Return the shortest edge from a list of edges.
+
+    :param edges: A list of edges
+    :type edges: List[Edge]
+    :return: The shortest edge
+    :rtype: Edge
+    """
     return min(edges, key=lambda e: e.length)

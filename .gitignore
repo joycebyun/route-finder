@@ -12,3 +12,5 @@ cov.xml
 .mypy_cache
 .pytest_cache
 .vscode
+
+docs/_build
