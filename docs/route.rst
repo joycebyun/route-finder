@@ -1,6 +1,6 @@
 .. docs/route.rst
 
-Route Module
+Route
 ===============
 
 This is the pydoc code for the ``route`` module
