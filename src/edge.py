@@ -2,6 +2,9 @@ from typing import NamedTuple, List
 
 
 class Edge(NamedTuple):
+    """Subclass of ``typing.NamedTuple`` that holds (u, v, key, length) 
+    for identifying an edge.
+    """
     u: int
     v: int
     key: int
@@ -14,6 +17,11 @@ class Edge(NamedTuple):
         return self.__str__()
 
     def flip(self) -> "Edge":
+        """Return a new edge with the u and v nodes switched.
+
+        :return: A new edge that is the same as the existing edge, except with u and v nodes switched.
+        :rtype: Edge
+        """
         return Edge(self.v, self.u, self.key, self.length)
 
 

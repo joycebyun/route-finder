@@ -1,6 +1,6 @@
 .. docs/edge.rst
 
-Edge Module
+Edge
 ===============
 
 This is the pydoc code for the ``edge`` module
