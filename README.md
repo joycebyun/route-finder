@@ -39,7 +39,33 @@ Running this project requires installations of:
 The recommended way to get the requirements is by installing [Docker](https://www.docker.com/products/docker-desktop/) and running the unofficial public Docker [image](https://hub.docker.com/r/gboeing/osmnx) created by the owner of `osmnx`.
 Everything that is needed to run this project is included in this Docker container environment, and there is no need to separately install Jupyter Notebook and `osmnx`.
 
-Alternatively, it is possible to install Jupyter Notebook and `osmnx` using [Anaconda](https://www.anaconda.com/products/distribution) or `pip`. See [here](https://docs.jupyter.org/en/latest/install/notebook-classic.html) and [here](https://osmnx.readthedocs.io/en/stable/#installation) for details.
+Alternatively, it is possible to install Jupyter Notebook and `osmnx` using [Anaconda](https://www.anaconda.com/products/distribution) or `pip`. 
+See [here](https://docs.jupyter.org/en/latest/install/notebook-classic.html) and [here](https://osmnx.readthedocs.io/en/stable/#installation) for details.
+
+## Usage
+
+**Note:** The instructions here assume that Docker has been installed.
+
+First, open a new terminal, and clone this repository:
+
+`git clone https://github.com/joycebyun/route-finder.git`
+
+Go into the repository's main directory, and run the Docker container:
+
+`cd route-finder`
+
+`docker run --rm -it -p 8888:8888 -v "$PWD":/home/jovyan/work gboeing/osmnx:latest /bin/bash`
+
+This will start a new terminal session inside the container. 
+From the new terminal, start Jupyter Notebook:
+
+`jupyter notebook`
+
+There will be many lines output to the terminal, but the important piece is the URL that begins with "`http://127.0.0.1:8888/`".
+Copy and past this full URL to a web browser.
+
+The web browser will show all of the files in your current directory. Click on `Route_finder.ipynb`.
+
 
 ## Algorithms
 
