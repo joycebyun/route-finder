@@ -114,7 +114,7 @@ class RouteFinder():
         return self.G.nodes[u]['visited'] is False
 
     def is_edge_to_unvisited_node(self, e: Edge) -> bool:
-        """_summary_
+        """Returns True if the edge ends at an unvisited node, and false otherwise.
 
         :param e: Input edge
         :type e: Edge
@@ -183,7 +183,7 @@ class RouteFinder():
         return edges
 
     def get_edges_from_path(self, path: List[int]) -> List[Edge]:
-        """Translates a path given as a list of nodes into a list of edges. 
+        """Translates a path given as a list of nodes into a list of edges.
         If there are parallel edges, always use the shortest edge available.
 
         :param path: Path given as a list of nodes.
@@ -229,10 +229,11 @@ class RouteFinder():
         self._recursive_greedy_nearest(route)
 
     def greedy_nearest(self) -> Route:
-        """Generate a route by always going to the nearest unvisited node whenever possible,
-        without having the route's distance exceed the maximum distance.
+        """Generates a route by using a greedy algorithm: the next node is always chosen
+        to the nearest viable unvisited node whenever possible, and if no such node exists,
+        choose the next node to be the nearest viable visited node.
 
-        :return: Route found using the greedy algorithm.
+        :return: Route found using a greedy algorithm
         :rtype: Route
         """
         route = Route()
