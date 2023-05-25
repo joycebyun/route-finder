@@ -27,7 +27,7 @@ class RouteFinder():
 
     def get_incident_edges(self, u: int) -> List[Edge]:
         """For an input node, get a list of all the incident edges
-        (any edge that starts or ends at the input node).
+        (all edges that start at the input node).
 
         :param u: Node
         :type u: int
@@ -211,7 +211,7 @@ class RouteFinder():
         if len(viable_edges) == 0:
             return
 
-        # check whether any incident edges go to an unvisited node
+        # check whether any viable incident edges go to an unvisited node
         edges_to_unvisited = [e for e in viable_edges if self.is_edge_to_unvisited_node(e)]
 
         if edges_to_unvisited:
