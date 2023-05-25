@@ -157,7 +157,7 @@ class RouteFinder():
 
         closest_viable_visited_node = None
         for v in distance_from_u.keys():
-            if (route.distance + distance_from_u[v] + self.distance_from_source[v] <= self.max_distance):
+            if (v in self.distance_from_source) and (route.distance + distance_from_u[v] + self.distance_from_source[v] <= self.max_distance):
                 if self.is_unvisited(v):
                     return path_from_u[v]
                 elif closest_viable_visited_node is None:
