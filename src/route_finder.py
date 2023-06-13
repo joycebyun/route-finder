@@ -4,6 +4,7 @@ import edge
 from route import Route
 import networkx as nx
 from typing import List, Tuple
+import graph_utils
 
 
 class RouteFinder():
@@ -25,17 +26,6 @@ class RouteFinder():
 
         self.distance_from_source = None
 
-    def get_incident_edges(self, u: int) -> List[Edge]:
-        """For an input node, get a list of all the incident edges
-        (all edges that start at the input node).
-
-        :param u: Node
-        :type u: int
-        :return: List of edges that are incident on this node
-        :rtype: List[Edge]
-        """
-        return [Edge(*e) for e in self.G.edges(nbunch=u, data='length', keys=True)]
-
     def get_viable_edges(self, route: Route) -> List[Edge]:
         """From the last node of the input route, get a list of incident edges
         that end at viable nodes. A viable node is defined as one that we can go to
@@ -49,7 +39,7 @@ class RouteFinder():
         """
 
         u = route.nodes[-1]
-        incident_edges = self.get_incident_edges(u)
+        incident_edges = graph_utils.get_incident_edges(self.G, u)
 
         viable = []
         for e in incident_edges:
@@ -103,34 +93,6 @@ class RouteFinder():
     #    max_new_nodes = max([__class__.count_unique_nodes(r) for r in routes])
     #    return [r for r in routes if __class__.count_unique_nodes(r) == max_new_nodes]
 
-    def is_unvisited(self, u: int) -> bool:
-        """Returns True if the input node is unvisited, and false otherwise.
-
-        :param u: Input node
-        :type u: int
-        :return: True if node is unvisited, and false otherwise
-        :rtype: bool
-        """
-        return self.G.nodes[u]['visited'] is False
-
-    def is_edge_to_unvisited_node(self, e: Edge) -> bool:
-        """Returns True if the edge ends at an unvisited node, and false otherwise.
-
-        :param e: Input edge
-        :type e: Edge
-        :return: True if the edge leads to an unvisited node, and false otherwise
-        :rtype: bool
-        """
-        return self.is_unvisited(e.v)
-
-    def mark_as_visited(self, n: int) -> None:
-        """Marks the input node as visited.
-
-        :param n: Input node
-        :type n: int
-        """
-        self.G.add_node(n, visited=True)
-
     def path_to_next_node(self, route: Route) -> List[int]:
         """Finds the nearest viable unvisited node, and returns the path to it.
         If there are no viable unvisited nodes, returns a path to the nearest viable visited node.
@@ -158,51 +120,12 @@ class RouteFinder():
         closest_viable_visited_node = None
         for v in distance_from_u.keys():
             if (v in self.distance_from_source) and (route.distance + distance_from_u[v] + self.distance_from_source[v] <= self.max_distance):
-                if self.is_unvisited(v):
+                if graph_utils.is_unvisited(self.G, v):
                     return path_from_u[v]
                 elif closest_viable_visited_node is None:
                     closest_viable_visited_node = v
 
         return path_from_u[closest_viable_visited_node]
-
-    def parallel_edges_between_u_and_v(self, u: int, v: int) -> List[Edge]:
-        """Returns a list of all edges between two input nodes.
-
-        :param u: First node
-        :type u: int
-        :param v: Second node
-        :type v: int
-        :return: List of all edges between the two nodes
-        :rtype: List[Edge]
-        """
-        edges = []
-        k = 0
-        while self.G.has_edge(u, v, key=k):
-            edges.append(Edge(u, v, k, self.G.edges[u, v, k]['length']))
-            k += 1
-        return edges
-
-    def get_edges_from_path(self, path: List[int]) -> List[Edge]:
-        """Translates a path given as a list of nodes into a list of edges.
-        If there are parallel edges, always use the shortest edge available.
-
-        :param path: Path given as a list of nodes.
-        :type path: List[int]
-        :return: List of edges corresponding to the shortest path visiting the same nodes in order.
-        :rtype: List[Edge]
-        """
-
-        path_edges = []
-        for i in range(len(path) - 1):
-            u = path[i]
-            v = path[i + 1]
-            edges = self.parallel_edges_between_u_and_v(u, v)
-            if len(edges) == 1:
-                path_edges += edges
-            else:
-                path_edges += edge.shortest_edge(edges)
-
-        return path_edges
 
     def _recursive_greedy_nearest(self, route: Route) -> None:
         viable_edges = self.get_viable_edges(route)
@@ -212,19 +135,19 @@ class RouteFinder():
             return
 
         # check whether any viable incident edges go to an unvisited node
-        edges_to_unvisited = [e for e in viable_edges if self.is_edge_to_unvisited_node(e)]
+        edges_to_unvisited = [e for e in viable_edges if graph_utils.is_edge_to_unvisited_node(self.G, e)]
 
         if edges_to_unvisited:
             e = edge.shortest_edge(edges_to_unvisited)
             route.add_edge(e)
-            self.mark_as_visited(e.v)
+            graph_utils.mark_as_visited(self.G, e.v)
         else:
             # if none of the adjacent nodes are unvisited, look further for the next node
             path = self.path_to_next_node(route)
-            edges = self.get_edges_from_path(path)
+            edges = graph_utils.get_edges_from_path(self.G, path)
             for e in edges:
                 route.add_edge(e)
-                self.mark_as_visited(e.v)
+                graph_utils.mark_as_visited(self.G, e.v)
 
         self._recursive_greedy_nearest(route)
 
@@ -238,6 +161,6 @@ class RouteFinder():
         """
         route = Route()
         route.nodes.append(self.source)
-        self.mark_as_visited(self.source)
+        graph_utils.mark_as_visited(self.G, self.source)
         self._recursive_greedy_nearest(route)
         return route
