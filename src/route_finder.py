@@ -3,7 +3,7 @@ from edge import Edge
 import edge
 from route import Route
 import networkx as nx
-from typing import List, Tuple
+from typing import List
 import graph_utils
 
 
@@ -34,7 +34,8 @@ class RouteFinder():
 
         :param route: Route traversed so far
         :type route: Route
-        :return: A list of incident edges that start at the route's last node and ends at a viable node
+        :return: A list of incident edges that start at the route's last node and ends at a viable
+            node
         :rtype: List[Edge]
         """
 
@@ -83,12 +84,12 @@ class RouteFinder():
 
         return all_routes
 
-    #@staticmethod
-    #def count_unique_nodes(route: Route) -> int:
+    # @staticmethod
+    # def count_unique_nodes(route: Route) -> int:
     #    return len(set(route.nodes))
 
-    #@staticmethod
-    #def maximize_new_nodes(routes: List[Route]) -> List[Route]:
+    # @staticmethod
+    # def maximize_new_nodes(routes: List[Route]) -> List[Route]:
         # return routes that have the largest number of new nodes
     #    max_new_nodes = max([__class__.count_unique_nodes(r) for r in routes])
     #    return [r for r in routes if __class__.count_unique_nodes(r) == max_new_nodes]
@@ -99,14 +100,15 @@ class RouteFinder():
 
         :param route: Route traversed so far
         :type route: Route
-        :return: Path to the nearest viable unvisited node, if it exists. If no such node exists, returns a path to the nearest viable visited node.
+        :return: Path to the nearest viable unvisited node, if it exists. If no such node exists,
+            returns a path to the nearest viable visited node.
         :rtype: List[int]
         """
 
         # find the distance of every node from the source (out to max dist/2)
         if self.distance_from_source is None:
             self.distance_from_source = nx.single_source_dijkstra_path_length(self.G, self.source,
-                                                                              cutoff=self.max_distance/2,
+                                                                              cutoff=self.max_distance / 2,
                                                                               weight='length')
 
         # find the distance of every node from current node u

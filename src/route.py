@@ -3,8 +3,8 @@ from edge import Edge
 
 
 class Route():
-    """Route consists of a list of nodes, a list of edges, and a total distance. 
-    Strictly, a list of edges are all that is needed to uniquely identify a route, 
+    """Route consists of a list of nodes, a list of edges, and a total distance.
+    Strictly, a list of edges are all that is needed to uniquely identify a route,
     but we also keep a list of nodes and the total distance out of convenience.
 
     :ivar nodes: A list of integers that label the nodes visited

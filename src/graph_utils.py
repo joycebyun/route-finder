@@ -1,6 +1,8 @@
+import edge
 from edge import Edge
 import networkx as nx
 from typing import List
+
 
 def get_incident_edges(G: nx.MultiGraph, u: int) -> List[Edge]:
     """For an input node, get a list of all the incident edges
@@ -15,6 +17,7 @@ def get_incident_edges(G: nx.MultiGraph, u: int) -> List[Edge]:
     """
     return [Edge(*e) for e in G.edges(nbunch=u, data='length', keys=True)]
 
+
 def is_unvisited(G: nx.MultiGraph, u: int) -> bool:
     """Returns True if the input node is unvisited, and false otherwise.
 
@@ -26,6 +29,7 @@ def is_unvisited(G: nx.MultiGraph, u: int) -> bool:
     :rtype: bool
     """
     return G.nodes[u]['visited'] is False
+
 
 def is_edge_to_unvisited_node(G: nx.MultiGraph, e: Edge) -> bool:
     """Returns True if the edge ends at an unvisited node, and false otherwise.
@@ -39,6 +43,7 @@ def is_edge_to_unvisited_node(G: nx.MultiGraph, e: Edge) -> bool:
     """
     return is_unvisited(G, e.v)
 
+
 def mark_as_visited(G: nx.MultiGraph, n: int) -> None:
     """Marks the input node as visited.
 
@@ -48,6 +53,7 @@ def mark_as_visited(G: nx.MultiGraph, n: int) -> None:
     :type n: int
     """
     G.add_node(n, visited=True)
+
 
 def parallel_edges_between_u_and_v(G: nx.MultiGraph, u: int, v: int) -> List[Edge]:
     """Returns a list of all edges between two input nodes.
@@ -68,6 +74,7 @@ def parallel_edges_between_u_and_v(G: nx.MultiGraph, u: int, v: int) -> List[Edg
         edges.append(Edge(u, v, k, G.edges[u, v, k]['length']))
         k += 1
     return edges
+
 
 def get_edges_from_path(G: nx.MultiGraph, path: List[int]) -> List[Edge]:
     """Translates a path given as a list of nodes into a list of edges.
@@ -92,4 +99,3 @@ def get_edges_from_path(G: nx.MultiGraph, path: List[int]) -> List[Edge]:
             path_edges += edge.shortest_edge(edges)
 
     return path_edges
-
