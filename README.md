@@ -75,6 +75,12 @@ The web browser will show all of the files in your current directory. Click on `
 
 This project is licensed under the terms of the MIT license.
 
+## Code style
+
+To aim for a consistent style in the source code, I used the [`Pylama`](https://github.com/klen/pylama) code auditing tool.
+
+After it's installed (e.g. `pip install pylama`), in a terminal, navigate to the `src/` directory and run `pylama`.
+
 ## Acknowledgements
 
 Many other developer tools and Python packages helped in the development of this project, such as:
