@@ -13,6 +13,7 @@ Welcome to Route Finder's documentation!
    edge
    route
    route_finder
+   graph_utils
 
 Indices and tables
 ==================
