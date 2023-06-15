@@ -81,11 +81,20 @@ To aim for a consistent style in the source code, I used the [`Pylama`](https://
 
 After it's installed (e.g. `pip install pylama`), in a terminal, navigate to the `src/` directory and run `pylama`.
 
+
+## Documentation
+
+The documentation can be generated from docstrings within the source code using [Sphinx](https://www.sphinx-doc.org/) and a built-in extension called *autodoc*.
+
+To use Sphinx, after it's installed (e.g. `pip install sphinx`), running `sphinx-quickstart` in the terminal will do most of the set up for me, including creating the `conf.py` that contains the default configuration settings and creating the root documentation file `index.rst`. Additional pages are added to the docs through additional `docs/*.rst` files, one per module.
+
+To re-generate the docs after source code changes, go to the `docs/` directory and run `make clean` and `make html`. The documentation can then be viewed by opening `docs/_build/index.html` in a web browser.
+
 ## Acknowledgements
 
 Many other developer tools and Python packages helped in the development of this project, such as:
 - [VS Code](https://code.visualstudio.com)
 - [`pytest`](https://docs.pytest.org/en/7.2.x/) and [`pytest-cov`](https://github.com/pytest-dev/pytest-cov) for testing and coverage
-- [`pylama`](https://github.com/klen/pylama) for checking code style and quality
+- [`Pylama`](https://github.com/klen/pylama) for checking code style and quality
 - [`shields.io`](https://shields.io) and [`genbadge`](https://github.com/smarie/python-genbadge) for making the badges in this readme
 - [Sphinx](https://www.sphinx-doc.org/) for automatically generating documentation from docstrings in reStructuredText (reST) format
