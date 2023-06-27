@@ -18,6 +18,19 @@ def get_incident_edges(G: nx.MultiGraph, u: int) -> List[Edge]:
     return [Edge(*e) for e in G.edges(nbunch=u, data='length', keys=True)]
 
 
+def is_visited(G: nx.MultiGraph, u: int) -> bool:
+    """Returns True if the input node is visited, and false otherwise.
+
+    :param G: Input graph
+    :type G: MultiGraph
+    :param u: Input node
+    :type u: int
+    :return: True if node is visited, and false otherwise
+    :rtype: bool
+    """
+    return G.nodes[u]['visited'] is True
+
+
 def is_unvisited(G: nx.MultiGraph, u: int) -> bool:
     """Returns True if the input node is unvisited, and false otherwise.
 
